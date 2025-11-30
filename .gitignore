@@ -1,7 +1,9 @@
 
-selenium_tutorial/*.py
+context/*
 
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+*.json
