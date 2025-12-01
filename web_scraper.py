@@ -93,18 +93,14 @@ def scrape_reaction_data(driver, reaction_id, max_retries=3):
         try:
             print(f"  Loading {reaction_id}...")
             driver.get(f"https://open-reaction-database.org/id/{reaction_id}")
-            
             # Wait for page to be interactive
             WebDriverWait(driver, 15).until(
                 lambda d: d.execute_script("return document.readyState") == "complete"
             )
-            
             # Wait a bit more for content to load
             time.sleep(2)
-            
             # STEP 1: Find and click the "View Full Record" button
             print(f"    Looking for 'View Full Record' button...")
-            
             # Try multiple selectors for the button
             button_selectors = [
                 "div.full-record.button",
@@ -112,7 +108,6 @@ def scrape_reaction_data(driver, reaction_id, max_retries=3):
                 "//div[contains(@class, 'full-record') and contains(text(), 'View Full Record')]",
                 "//div[contains(text(), 'View Full Record')]",
             ]
-            
             button = None
             for selector in button_selectors:
                 try:
@@ -133,22 +128,18 @@ def scrape_reaction_data(driver, reaction_id, max_retries=3):
             
             if not button:
                 raise Exception("Could not find 'View Full Record' button")
-            
             # Click the button to open the modal
             print("    Clicking 'View Full Record' button...")
             driver.execute_script("arguments[0].click();", button)
             time.sleep(2)  # Wait for modal to open
-            
             # STEP 2: Wait for the modal to appear and find the JSON data
             print("    Looking for JSON data in modal...")
-            
             # Wait for modal to be visible
             modal_selectors = [
                 "div.modal-container",
                 ".modal-container",
                 "//div[contains(@class, 'modal-container')]",
             ]
-            
             modal = None
             for selector in modal_selectors:
                 try:
@@ -169,7 +160,6 @@ def scrape_reaction_data(driver, reaction_id, max_retries=3):
             
             if not modal:
                 raise Exception("Modal did not appear after clicking button")
-            
             # STEP 3: Find the JSON data inside the modal
             json_selectors = [
                 "div.data pre",
@@ -177,7 +167,6 @@ def scrape_reaction_data(driver, reaction_id, max_retries=3):
                 "pre",
                 "//pre[contains(text(), 'reactionId')]",
             ]
-            
             data_element = None
             for selector in json_selectors:
                 try:
@@ -198,13 +187,10 @@ def scrape_reaction_data(driver, reaction_id, max_retries=3):
             
             if not data_element:
                 raise Exception("No JSON element found in modal")
-            
             # Get the text and validate
             json_text = data_element.text
-            
             if not json_text or json_text.strip() == "":
                 raise Exception("Empty JSON data")
-            
             if not json_text.strip().startswith('{'):
                 raise Exception("Data doesn't look like JSON")
             reaction_data = json.loads(json_text)
@@ -216,7 +202,6 @@ def scrape_reaction_data(driver, reaction_id, max_retries=3):
                 time.sleep(0.5)
             except:
                 pass
-            
             print(f"✓ Successfully scraped: {reaction_id}")
             return {
                 'reaction_id': reaction_id,
@@ -359,7 +344,7 @@ def scrape_all_datasets_parallel(max_workers=3):
     print(f"Found {len(dataset_ids)} datasets to scrape\n")
     
     # Limit to first few datasets for testing
-    dataset_ids = dataset_ids[:2]  # Start with just 2 datasets
+    # dataset_ids = dataset_ids[:2]  # Start with just 2 datasets
     
     # Step 2: Scrape datasets in parallel
     print(f"Step 2: Scraping datasets in parallel (max_workers={max_workers})...\n")
@@ -386,7 +371,7 @@ def scrape_all_datasets_parallel(max_workers=3):
                     'error': str(e)
                 })
     
-    # Step 3: Summary and save (same as before)
+    # Step 3: Summary
     total_reactions = sum(r.get('total_reactions', 0) for r in all_results)
     total_successful = sum(r.get('successful_scrapes', 0) for r in all_results)
     
@@ -399,14 +384,7 @@ def scrape_all_datasets_parallel(max_workers=3):
     print(f"Failed: {total_reactions - total_successful}")
     print(f"{'='*60}\n")
     
-    # Save results
-    output_file = 'reaction_database_scrape.json'
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(all_results, f, indent=2, ensure_ascii=False)
-    print(f"✓ Results saved to {output_file}")
-    
     return all_results
-
 def format_reaction_data(reaction_data):
     """Extract identifiers, amount, and reaction_role while preserving input map structure"""
     if not reaction_data or 'data' not in reaction_data:
@@ -505,7 +483,9 @@ def format_reaction_data(reaction_data):
 
 
 def main():
-    results = scrape_all_datasets_sequential()
+    # results = scrape_all_datasets_sequential()
+    results = scrape_all_datasets_parallel(max_workers=2);
+    
     
     # Print some examples of the formatted data
     print("\n" + "="*60)
@@ -577,8 +557,6 @@ def main():
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(formatted_results, f, indent=2, ensure_ascii=False)
     print(f"✓ Formatted results saved to {output_file}")
-
-
 
 if __name__ == "__main__":
     main()
