@@ -1,0 +1,152 @@
+{
+  "ord_dataset-00005539a1e04c809a9a78647bea649c": {
+    "dataset_id": "ord_dataset-00005539a1e04c809a9a78647bea649c",
+    "total_reactions_scraped": 1,
+    "reactions": [
+      {
+        "reaction_id": "ord-05542745a3df403aa88ae927045679bd",
+        "success": true,
+        "inputsMap": [
+          [
+            "Base",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CC(C)(C)[O-].[Na+]"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0.004480000119656324,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "REAGENT"
+                }
+              ]
+            }
+          ],
+          [
+            "Solvent",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CC(=O)N(C)C"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 0.025599999353289604,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                }
+              ]
+            }
+          ],
+          [
+            "amine",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "C1CNCCN1"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0.008059999905526638,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "REACTANT"
+                }
+              ]
+            }
+          ],
+          [
+            "aryl halide",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CC1=CC(=C(C=C1)NC2=C(N=NC3=C2C=CC(=C3)Br)C#N)F"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0.0017900000093504786,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "REACTANT"
+                }
+              ]
+            }
+          ],
+          [
+            "metal and ligand",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CC(C)C1=CC(=C(C(=C1)C(C)C)C2=CC=CC=C2P(C3CCCCC3)C4CCCCC4)C(C)C"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0.0002690000110305846,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "CATALYST"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "C1=CC=C(C=C1)/C=C/C(=O)/C=C/C2=CC=CC=C2.C1=CC=C(C=C1)/C=C/C(=O)/C=C/C2=CC=CC=C2.C1=CC=C(C=C1)/C=C/C(=O)/C=C/C2=CC=CC=C2.[Pd].[Pd]"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0.0001429999974789098,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "CATALYST"
+                }
+              ]
+            }
+          ]
+        ],
+        "outcomes": [
+          {
+            "identifiers": [
+              {
+                "type": "SMILES",
+                "value": "CC1=CC(=C(C=C1)NC2=C(N=NC3=C2C=CC(=C3)N4CCNCC4)C#N)F"
+              }
+            ],
+            "amount": {},
+            "reaction_role": "PRODUCT",
+            "is_desired_product": true
+          }
+        ]
+      }
+    ]
+  }
+}

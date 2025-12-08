@@ -1,0 +1,435 @@
+{
+  "ord_dataset-01dbb772c5e249108f0b191ed17a2c0c": {
+    "dataset_id": "ord_dataset-01dbb772c5e249108f0b191ed17a2c0c",
+    "total_reactions_scraped": 2,
+    "reactions": [
+      {
+        "reaction_id": "ord-082c10047ad64187a1aa3f32d4231702",
+        "success": true,
+        "inputsMap": [
+          [
+            "m1_m2_m5",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CN(CCN)CC1=CC=CC=C1"
+                    }
+                  ],
+                  "amount": {},
+                  "reaction_role": "REACTANT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "C(=O)(N1C=NC=C1)N1C=NC=C1"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0.05000000074505806,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "REACTANT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "O1CCCC1"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 100,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                }
+              ]
+            }
+          ],
+          [
+            "m3",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CC(C)NCCS(=O)(=O)C1=CC=CC=C1"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0.03999999910593033,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "REACTANT"
+                }
+              ]
+            }
+          ],
+          [
+            "m4",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "[O-][Si](=O)[O-].[Mg+2]"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "REACTANT"
+                }
+              ]
+            }
+          ],
+          [
+            "m6",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "C(Cl)(Cl)Cl"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                }
+              ]
+            }
+          ]
+        ],
+        "outcomes": [
+          {
+            "identifiers": [
+              {
+                "type": "SMILES",
+                "value": "CC(C)N(C(=O)NCCN(CC1=CC=CC=C1)C)CCS(=O)(=O)C1=CC=CC=C1"
+              }
+            ],
+            "amount": {},
+            "reaction_role": "PRODUCT",
+            "is_desired_product": false
+          }
+        ]
+      },
+      {
+        "reaction_id": "ord-0eba15b633444881a771df4d2bfbd10e",
+        "success": true,
+        "inputsMap": [
+          [
+            "m1_m2_m3_m4",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "ClC1=CC=C(C=C1)CC(=O)O"
+                    }
+                  ],
+                  "amount": {},
+                  "reaction_role": "REACTANT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "C(C(=O)Cl)(=O)Cl"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 2,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "REACTANT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "C(Cl)Cl"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 100,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CN(C=O)C"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "CATALYST"
+                }
+              ]
+            }
+          ]
+        ],
+        "outcomes": [
+          {
+            "identifiers": [
+              {
+                "type": "SMILES",
+                "value": "ClC1=CC=C(C=C1)CC(=O)Cl"
+              }
+            ],
+            "amount": {},
+            "reaction_role": "PRODUCT",
+            "is_desired_product": false
+          }
+        ]
+      }
+    ]
+  },
+  "ord_dataset-018fd0e1351f4fd09b20fcddd97b4c7a": {
+    "dataset_id": "ord_dataset-018fd0e1351f4fd09b20fcddd97b4c7a",
+    "total_reactions_scraped": 2,
+    "reactions": [
+      {
+        "reaction_id": "ord-04b5894104d743daa3447f348afad5c1",
+        "success": true,
+        "inputsMap": [
+          [
+            "m1_m4",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "O[C@H]1[C@@H](CCC2=CC3=C(SCC3)C=C12)NC(CC)=O"
+                    }
+                  ],
+                  "amount": {},
+                  "reaction_role": "REACTANT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "O1CCCC1"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 97,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                }
+              ]
+            }
+          ],
+          [
+            "m3",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "O1CCCC1"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 75,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                }
+              ]
+            }
+          ],
+          [
+            "m7_m2_m5_m6",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "[OH-].[Na+]"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 1.2999999523162842,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "REACTANT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "O"
+                    }
+                  ],
+                  "amount": {
+                    "moles": {
+                      "value": 0,
+                      "units": "MOLE"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "O"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 5.800000190734863,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "O"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 1.600000023841858,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                }
+              ]
+            }
+          ]
+        ],
+        "outcomes": [
+          {
+            "identifiers": [
+              {
+                "type": "SMILES",
+                "value": "O[C@H]1[C@@H](CCC2=CC3=C(SCC3)C=C12)NCCC"
+              }
+            ],
+            "amount": {},
+            "reaction_role": "PRODUCT",
+            "is_desired_product": false
+          }
+        ]
+      },
+      {
+        "reaction_id": "ord-0732293e181346eba1ff8d891ce02cf4",
+        "success": true,
+        "inputsMap": [
+          [
+            "m1",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "C(C1=CC=CC=C1)OC1=CC=C2C(=CC(OC2=C1)=O)O"
+                    }
+                  ],
+                  "amount": {},
+                  "reaction_role": "REACTANT"
+                }
+              ]
+            }
+          ],
+          [
+            "m2_m3",
+            {
+              "components": [
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "[Pd]"
+                    }
+                  ],
+                  "amount": {},
+                  "reaction_role": "CATALYST"
+                },
+                {
+                  "identifiers": [
+                    {
+                      "type": "SMILES",
+                      "value": "CO"
+                    }
+                  ],
+                  "amount": {
+                    "volume": {
+                      "value": 85,
+                      "units": "LITER"
+                    }
+                  },
+                  "reaction_role": "SOLVENT"
+                }
+              ]
+            }
+          ]
+        ],
+        "outcomes": [
+          {
+            "identifiers": [
+              {
+                "type": "SMILES",
+                "value": "OC1=CC(OC2=CC(=CC=C12)O)=O"
+              }
+            ],
+            "amount": {},
+            "reaction_role": "PRODUCT",
+            "is_desired_product": false
+          }
+        ]
+      }
+    ]
+  }
+}
