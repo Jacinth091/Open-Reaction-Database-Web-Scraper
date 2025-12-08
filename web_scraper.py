@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from selenium.webdriver.support.ui import Select
 import json
 import time
 REACTION_ROLE_MAPPING = {
@@ -51,7 +52,27 @@ def get_all_reaction_ids_from_dataset(driver, dataset_id):
         wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
         time.sleep(2)
         
-        # Find reaction links
+        # SELECT THE 100 OPTION FROM THE DROPDOWN (more reliable method)
+        try:
+            print(f"  Selecting 100 entries per page...")
+            
+            # Find the select element
+            select_element = wait.until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, "select#pagination"))
+            )
+            
+            # Use Select class to interact with dropdown
+            select = Select(select_element)
+            select.select_by_value('100')
+            
+            print(f"  Selected 100 entries, waiting for page to refresh...")
+            time.sleep(3)  # Wait for page to reload with all 100 entries
+            
+        except Exception as e:
+            print(f"  Warning: Could not select 100 entries: {e}")
+            print(f"  Continuing with default pagination...")
+        
+        # Find reaction links (now should get all 100)
         selectors = [
             "a[href*='/id/ord-']",
             "//a[contains(@href, '/id/ord-')]",
@@ -86,6 +107,7 @@ def get_all_reaction_ids_from_dataset(driver, dataset_id):
     except Exception as e:
         print(f"Error getting reactions from {dataset_id}: {e}")
         return []
+    
 
 def scrape_reaction_data(driver, reaction_id, max_retries=3):
     """Scrape the JSON data from a single reaction page with retries"""
@@ -344,7 +366,7 @@ def scrape_all_datasets_parallel(max_workers=3):
     print(f"Found {len(dataset_ids)} datasets to scrape\n")
     
     # Limit to first few datasets for testing
-    # dataset_ids = dataset_ids[:2]  # Start with just 2 datasets
+    dataset_ids = dataset_ids[:1]  # Start with just 2 datasets
     
     # Step 2: Scrape datasets in parallel
     print(f"Step 2: Scraping datasets in parallel (max_workers={max_workers})...\n")
@@ -484,7 +506,7 @@ def format_reaction_data(reaction_data):
 
 def main():
     # results = scrape_all_datasets_sequential()
-    results = scrape_all_datasets_parallel(max_workers=2);
+    results = scrape_all_datasets_parallel(max_workers=3);
     
     
     # Print some examples of the formatted data
