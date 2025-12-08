@@ -1,4 +1,4 @@
-from scraper_setup import get_driver
+# from scraper_setup import get_driver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -7,6 +7,56 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import TimeoutException
 import json
 import time
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
+def get_driver():
+    """Create a stable Chrome driver with optimized options"""
+    chrome_options = Options()
+    
+    # Optional: Run headless (no browser window)
+    # chrome_options.add_argument("--headless")
+    
+    # Stability and privacy options
+    chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    chrome_options.add_experimental_option('useAutomationExtension', False)
+    
+    # Disable cache for fresh data
+    chrome_options.add_argument("--disable-application-cache")
+    chrome_options.add_argument("--disk-cache-size=0")
+    
+    # Performance and stability settings
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-gpu")
+    
+    # Suppress logging
+    chrome_options.add_argument("--log-level=3")
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    
+    # Download settings
+    chrome_options.add_experimental_option("prefs", {
+        "download.default_directory": "./downloads",
+        "download.prompt_for_download": False,
+        "download.directory_upgrade": True,
+        "safebrowsing.enabled": True
+    })
+    
+    # Create driver with webdriver-manager (auto-downloads chromedriver)
+    driver = webdriver.Chrome(
+        service=Service(ChromeDriverManager().install()),
+        options=chrome_options
+    )
+    
+    # Set timeouts
+    driver.set_page_load_timeout(30)
+    driver.implicitly_wait(10)
+    
+    return driver
 
 # --- CONFIGURATION ---
 GLOBAL_TIMEOUT = 45 
