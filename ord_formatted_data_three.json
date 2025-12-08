@@ -14,45 +14,24 @@
                 {
                   "identifiers": [
                     {
-                      "type": "NAME",
-                      "value": "azetidine hydrochloride"
-                    },
-                    {
                       "type": "SMILES",
                       "value": "Cl.N1CCC1"
-                    },
-                    {
-                      "type": "INCHI",
-                      "value": "InChI=1S/C3H7N.ClH/c1-2-4-3-1;/h4H,1-3H2;1H"
                     }
                   ],
-                  "amount": {
-                    "mass": {
-                      "value": 1,
-                      "units": "GRAM"
-                    }
-                  },
+                  "amount": {},
                   "reaction_role": "REACTANT"
                 },
                 {
                   "identifiers": [
                     {
-                      "type": "NAME",
-                      "value": "tetrahydrofuran"
-                    },
-                    {
                       "type": "SMILES",
                       "value": "O1CCCC1"
-                    },
-                    {
-                      "type": "INCHI",
-                      "value": "InChI=1S/C4H8O/c1-2-4-5-3-1/h1-4H2"
                     }
                   ],
                   "amount": {
                     "volume": {
                       "value": 20,
-                      "units": "MILLILITER"
+                      "units": "LITER"
                     }
                   },
                   "reaction_role": "SOLVENT"
@@ -60,22 +39,14 @@
                 {
                   "identifiers": [
                     {
-                      "type": "NAME",
-                      "value": "water"
-                    },
-                    {
                       "type": "SMILES",
                       "value": "O"
-                    },
-                    {
-                      "type": "INCHI",
-                      "value": "InChI=1S/H2O/h1H2"
                     }
                   ],
                   "amount": {
                     "volume": {
                       "value": 5,
-                      "units": "MILLILITER"
+                      "units": "LITER"
                     }
                   },
                   "reaction_role": "SOLVENT"
@@ -90,22 +61,14 @@
                 {
                   "identifiers": [
                     {
-                      "type": "NAME",
-                      "value": "sodium hydroxide"
-                    },
-                    {
                       "type": "SMILES",
                       "value": "[OH-].[Na+]"
-                    },
-                    {
-                      "type": "INCHI",
-                      "value": "InChI=1S/Na.H2O/h;1H2/q+1;/p-1"
                     }
                   ],
                   "amount": {
                     "volume": {
                       "value": 10.699999809265137,
-                      "units": "MILLILITER"
+                      "units": "LITER"
                     }
                   },
                   "reaction_role": "REACTANT"
@@ -120,22 +83,14 @@
                 {
                   "identifiers": [
                     {
-                      "type": "NAME",
-                      "value": "tert-butyl bromoacetate"
-                    },
-                    {
                       "type": "SMILES",
                       "value": "BrCC(=O)OC(C)(C)C"
-                    },
-                    {
-                      "type": "INCHI",
-                      "value": "InChI=1S/C6H11BrO2/c1-6(2,3)9-5(8)4-7/h4H2,1-3H3"
                     }
                   ],
                   "amount": {
                     "volume": {
                       "value": 1.0520000457763672,
-                      "units": "MILLILITER"
+                      "units": "LITER"
                     }
                   },
                   "reaction_role": "REACTANT"
@@ -150,16 +105,8 @@
                 {
                   "identifiers": [
                     {
-                      "type": "NAME",
-                      "value": "ethyl acetate"
-                    },
-                    {
                       "type": "SMILES",
                       "value": "C(C)(=O)OCC"
-                    },
-                    {
-                      "type": "INCHI",
-                      "value": "InChI=1S/C4H8O2/c1-3-6-4(2)5/h3H2,1-2H3"
                     }
                   ],
                   "amount": {
@@ -173,16 +120,8 @@
                 {
                   "identifiers": [
                     {
-                      "type": "NAME",
-                      "value": "water"
-                    },
-                    {
                       "type": "SMILES",
                       "value": "O"
-                    },
-                    {
-                      "type": "INCHI",
-                      "value": "InChI=1S/H2O/h1H2"
                     }
                   ],
                   "amount": {
@@ -201,34 +140,13 @@
           {
             "identifiers": [
               {
-                "type": "NAME",
-                "value": "title compound"
-              },
-              {
-                "type": "NAME",
-                "value": "tert-Butyl 2-(Azetidin-1-yl)acetate"
-              },
-              {
                 "type": "SMILES",
                 "value": "N1(CCC1)CC(=O)OC(C)(C)C"
-              },
-              {
-                "type": "INCHI",
-                "value": "InChI=1S/C9H17NO2/c1-9(2,3)12-8(11)7-10-5-4-6-10/h4-7H2,1-3H3"
               }
             ],
+            "amount": {},
             "reaction_role": "PRODUCT",
-            "is_desired_product": false,
-            "measurements": [
-              {
-                "type": 9,
-                "details": "MASS",
-                "mass": {
-                  "value": 688,
-                  "units": "MILLIGRAM"
-                }
-              }
-            ]
+            "is_desired_product": false
           }
         ]
       }

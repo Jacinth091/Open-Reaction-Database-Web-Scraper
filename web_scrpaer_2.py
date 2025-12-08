@@ -66,21 +66,51 @@ REACTION_ROLE_MAPPING = {
     4: "CATALYST", 5: "WORKUP", 6: "INTERNAL_STANDARD",
     7: "AUTHENTIC_STANDARD", 8: "PRODUCT", 9: "BYPRODUCT", 10: "SIDE_PRODUCT"
 }
+IDENTIFIER_TYPE_MAPPING = {
+    0: "UNSPECIFIED",
+    1: "CUSTOM",
+    2: "SMILES",
+    3: "INCHI",
+    4: "MOLBLOCK",
+    5: "FINGERPRINT",
+    6: "NAME",          
+    7: "IUPAC_NAME",    
+    8: "CAS_NUMBER"     
+}
 
 # --- FORMATTER FUNCTION (YOUR CODE) ---
 def format_reaction_data(reaction_data):
-    """Extract identifiers, amount, and reaction_role while preserving input map structure"""
+    """Extract all identifiers types, amount, and reaction_role with CORRECT mappings."""
     if not reaction_data or 'data' not in reaction_data:
         return None
     
     data = reaction_data['data']
     formatted = {
         'reaction_id': data.get('reactionId'),
-        'success': reaction_data['success'],
+        'success': reaction_data.get('success', True), # specific handle if success missing
         'inputsMap': []
     }
+
+    # --- MAPPINGS BASED ON ORD PROTOBUF DEFINITIONS ---
+    # Mass: 1=KG, 2=G, 3=MG, 4=UG
+    MASS_UNIT_MAPPING = { 0: "UNSPECIFIED", 1: "KILOGRAM", 2: "GRAM", 3: "MILLIGRAM", 4: "MICROGRAM" }
     
-    # Extract inputs while preserving the map structure
+    # Volume: 1=L, 2=ML, 3=UL, 4=NL
+    VOLUME_UNIT_MAPPING = { 0: "UNSPECIFIED", 1: "LITER", 2: "MILLILITER", 3: "MICROLITER", 4: "NANOLITER" }
+    
+    # Moles: 1=MOL, 2=MMOL, 3=UMOL, 4=NMOL
+    MOLE_UNIT_MAPPING = { 0: "UNSPECIFIED", 1: "MOLE", 2: "MILLIMOLE", 3: "MICROMOLE", 4: "NANOMOLE" }
+
+    def extract_identifiers(item):
+        extracted_ids = []
+        for identifier in item.get("identifiersList", []):
+            type_int = identifier.get("type", 0)
+            type_str = IDENTIFIER_TYPE_MAPPING.get(type_int, "UNKNOWN")
+            extracted_ids.append({
+                "type": type_str,
+                "value": identifier.get("value")
+            })
+        return extracted_ids
     if 'inputsMap' in data:
         for input_entry in data["inputsMap"]:
             tab_name = input_entry[0]
@@ -88,36 +118,32 @@ def format_reaction_data(reaction_data):
             
             formatted_components = []
             for component in input_data.get("componentsList", []):
-                # Get identifiers (SMILES)
-                identifiers = []
-                for identifier in component.get("identifiersList", []):
-                    if identifier.get("type") == 2:  # SMILES
-                        identifiers.append({
-                            "type": "SMILES",
-                            "value": identifier.get("value")
-                        })
                 
-                # Get amount (moles OR volume)
+                identifiers = extract_identifiers(component)
+                
                 amount_data = {}
                 if 'amount' in component:
-                    if 'moles' in component['amount']:
-                        moles = component['amount']['moles']
+                    amt = component['amount']
+                    
+                    if 'moles' in amt:
+                        val = amt['moles'].get('value')
+                        unit_id = amt['moles'].get('units', 0)
                         amount_data = {
-                            "moles": {
-                                "value": moles.get('value'),
-                                "units": "MOLE"
-                            }
+                            "moles": { "value": val, "units": MOLE_UNIT_MAPPING.get(unit_id, "UNKNOWN") }
                         }
-                    elif 'volume' in component['amount']:
-                        volume = component['amount']['volume']
+                    elif 'volume' in amt:
+                        val = amt['volume'].get('value')
+                        unit_id = amt['volume'].get('units', 0)
                         amount_data = {
-                            "volume": {
-                                "value": volume.get('value'),
-                                "units": "LITER"
-                            }
+                            "volume": { "value": val, "units": VOLUME_UNIT_MAPPING.get(unit_id, "UNKNOWN") }
+                        }
+                    elif 'mass' in amt:
+                        val = amt['mass'].get('value')
+                        unit_id = amt['mass'].get('units', 0)
+                        amount_data = {
+                            "mass": { "value": val, "units": MASS_UNIT_MAPPING.get(unit_id, "UNKNOWN") }
                         }
                 
-                # Get reaction role
                 reaction_role_value = component.get("reactionRole")
                 reaction_role = REACTION_ROLE_MAPPING.get(reaction_role_value, "UNKNOWN")
                 
@@ -128,37 +154,38 @@ def format_reaction_data(reaction_data):
                 }
                 formatted_components.append(component_info)
             
-            # Preserve the tab name and its components
-            formatted_input = [
-                tab_name,
-                {
-                    "components": formatted_components
-                }
-            ]
+            formatted_input = [ tab_name, { "components": formatted_components } ]
             formatted['inputsMap'].append(formatted_input)
     
-    # Extract products from outcomes separately
     formatted['outcomes'] = []
     if 'outcomesList' in data:
         for outcome in data['outcomesList']:
             for product in outcome.get('productsList', []):
-                # Get identifiers (SMILES)
-                identifiers = []
-                for identifier in product.get('identifiersList', []):
-                    if identifier.get("type") == 2:  # SMILES
-                        identifiers.append({
-                            "type": "SMILES",
-                            "value": identifier.get("value")
-                        })
                 
-                # Products typically don't have amounts in the same way
-                amount_data = {}
+                identifiers = extract_identifiers(product)
                 
+                # --- FIXED MEASUREMENT LOGIC ---
+                # We need to map the measurements (Yield/Mass) similar to how we mapped inputs
+                formatted_measurements = []
+                for meas in product.get('measurementsList', []):
+                    # Check if it's a MASS measurement (Type 9 usually, but we check structure)
+                    meas_data = {"type": meas.get("type"), "details": meas.get("details")}
+                    
+                    # Extract amount if present in measurement
+                    if 'amount' in meas and 'mass' in meas['amount']:
+                         val = meas['amount']['mass'].get('value')
+                         unit_id = meas['amount']['mass'].get('units', 0)
+                         meas_data['mass'] = {
+                             "value": val,
+                             "units": MASS_UNIT_MAPPING.get(unit_id, "UNKNOWN")
+                         }
+                    formatted_measurements.append(meas_data)
+
                 product_info = {
                     "identifiers": identifiers,
-                    "amount": amount_data,
                     "reaction_role": "PRODUCT",
-                    "is_desired_product": product.get('isDesiredProduct', False)
+                    "is_desired_product": product.get('isDesiredProduct', False),
+                    "measurements": formatted_measurements
                 }
                 formatted['outcomes'].append(product_info)
     
